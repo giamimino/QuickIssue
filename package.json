@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prettier:check": "prettier --check 'src/**/*.{ts,tsx,jsx,js}'",
+    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx,jsx,js}'"
   },
   "dependencies": {
     "next": "16.2.9",
