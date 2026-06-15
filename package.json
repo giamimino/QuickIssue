@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "typecheck": "next typegen && tsc --noEmit",
     "lint": "eslint",
     "prettier:check": "prettier --check 'src/**/*.{ts,tsx,jsx,js}'",
-    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx,jsx,js}'"
+    "prettier:fix": "prettier --write 'src/**/*.{ts,tsx,jsx,js}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@auth/neon-adapter": "^1.11.2",
@@ -33,6 +35,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
+    "husky": "^9.1.7",
     "prettier": "^3.8.4",
     "tailwindcss": "^4",
     "typescript": "^5"
