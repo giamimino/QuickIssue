@@ -28,7 +28,7 @@ export function Header() {
         {["Features", "How it works", "Benefits"].map((item) => (
           <button
             key={item.toLowerCase().replace(/\s+/g, "-")}
-            className="text-black/50 hover:text-primary transition-colors rounded-md cursor-pointer"
+            className="text-foreground/50 hover:text-primary transition-colors rounded-md cursor-pointer"
           >
             {item}
           </button>
@@ -36,7 +36,7 @@ export function Header() {
       </div>
 
       <div className="hidden md:flex items-center gap-3">
-        <div className="text-black/50 hover:text-primary cursor-pointer text-sm transition-colors px-3 py-1.5">
+        <div className="text-foreground/50 hover:text-primary cursor-pointer text-sm transition-colors px-3 py-1.5">
           Log in
         </div>
         <div
