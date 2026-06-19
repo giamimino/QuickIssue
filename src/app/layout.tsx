@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { Header } from "@/components/layouts/header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,12 +33,10 @@ export default function RootLayout({
         "font-sans",
         inter.variable,
         jetBrainsMono.variable,
+        "dark",
       )}
     >
-      <body className="min-h-full flex flex-col">
-        <Header />
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
