@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-radius
+
 :root {
   --font-size: 16px;
   --background: #F6F8FA;
@@ -43,6 +43,8 @@ radius
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --lavender: #A78BFA;
+  --periwinkle: #818CF8;
 }
 
 .dark {
@@ -121,6 +123,13 @@ radius
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-lavender: var(--lavender);
+  --color-periwinkle: var(--periwinkle);
+  --color-sky-blue: var(--sky-blue);
+  --color-indigo: var(--indigo);
+  --color-violet: var(--violet);
+
+  --breakpoint-xs: 28rem;
 }
 
 @layer base {

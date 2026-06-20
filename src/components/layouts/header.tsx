@@ -14,7 +14,7 @@ export function Header() {
         onClick={() => router.push("/")}
       >
         <div
-          className="w-8 h-8 rounded-md bg-linear-to-br from-[#6366f1] to-[#8b5cf6] flex items-center justify-center"
+          className="w-8 h-8 rounded-md bg-linear-to-br from-indigo-400 to-violet-400 flex items-center justify-center"
           style={{ borderRadius: "10px" }}
         >
           <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
