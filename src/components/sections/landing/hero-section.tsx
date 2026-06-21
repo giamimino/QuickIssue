@@ -145,7 +145,7 @@ function IssueEditorMockup() {
 const HeroSection = () => {
   return (
     <section>
-      <div className="px-18 py-24 max-lg:px-15 max-lg:py-20 max-md:px-9 max-md:py-12 max-sm:px-6 max-sm:py-8 flex justify-between">
+      <div className="px-18 py-24 max-lg:px-15 max-lg:py-20 max-md:px-9 max-md:py-12 max-sm:px-0 max-sm:py-8 flex justify-between">
         <div className="flex flex-col gap-6">
           <p className="text-7xl max-lg:text-6xl max-md:text-5xl text-muted-foreground flex flex-col font-bold">
             <motion.span

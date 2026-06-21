@@ -3,6 +3,7 @@ import {
   AlignLeft,
   Bookmark,
   Clock,
+  Computer,
   Globe,
   LayoutTemplate,
   RefreshCw,
@@ -10,7 +11,6 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import Github from "next-auth/providers/github";
 
 export const benefits = [
   {
@@ -98,7 +98,7 @@ export const features = [
     border: "rgba(210, 168, 255, 0.2)",
   },
   {
-    icon: Github,
+    icon: Computer,
     title: "GitHub Native",
     description:
       "Authenticate with GitHub, link repositories, and push issue templates directly into your repo's .github directory.",
@@ -111,7 +111,7 @@ export const features = [
 export const steps = [
   {
     number: "01",
-    icon: Github,
+    icon: Computer,
     title: "Connect GitHub",
     description:
       "Sign in with your GitHub account. QuickIssue connects to your repos securely via OAuth — no tokens to manage.",
