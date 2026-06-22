@@ -1,12 +1,13 @@
 "use client";
 import FeaturesSection from "@/components/sections/landing/features-section";
 import HeroSection from "@/components/sections/landing/hero-section";
+import HowItWorksSections from "@/components/sections/landing/how-it-works-sections";
 import LandingSection from "@/components/sections/landing/landing-section";
 import React from "react";
 
 const LandingPage = () => {
   return (
-    <div className="px-8 max-md:px-6">
+    <div className="px-8 max-md:px-6 flex flex-col gap-24">
       <HeroSection />
       <LandingSection
         tag="Features"
@@ -15,6 +16,14 @@ const LandingPage = () => {
       >
         <FeaturesSection />
       </LandingSection>
+      <LandingSection
+        tag="How it works"
+        title="From zero to better issues in minutes"
+        description="Four simple steps to transform how your team reports bugs and requests features."
+      >
+        <HowItWorksSections />
+      </LandingSection>
+      <div className="h-screen"></div>
     </div>
   );
 };

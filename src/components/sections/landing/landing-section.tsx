@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { CardDescription, CardTitle } from "@/components/ui/card";
+import { motion } from "motion/react";
 import React from "react";
 
 const LandingSection = ({
@@ -18,7 +19,13 @@ const LandingSection = ({
       className="flex flex-col gap-3"
       id={tag.toLowerCase().replace(/\s+/g, "-")}
     >
-      <div className="flex flex-col gap-2.5 items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 1 }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col gap-2.5 items-center"
+      >
         <Button variant={"outline"} className={"text-muted-foreground"}>
           {tag}
         </Button>
@@ -26,7 +33,7 @@ const LandingSection = ({
         <CardDescription className="text-[18px] w-full max-w-200 text-center">
           {description}
         </CardDescription>
-      </div>
+      </motion.div>
       <div>{children}</div>
     </section>
   );
