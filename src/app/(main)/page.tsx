@@ -1,4 +1,5 @@
 "use client";
+import BenefitsSection from "@/components/sections/landing/benefits-section";
 import FeaturesSection from "@/components/sections/landing/features-section";
 import HeroSection from "@/components/sections/landing/hero-section";
 import HowItWorksSections from "@/components/sections/landing/how-it-works-sections";
@@ -22,6 +23,12 @@ const LandingPage = () => {
         description="Four simple steps to transform how your team reports bugs and requests features."
       >
         <HowItWorksSections />
+      </LandingSection>
+      <LandingSection
+        tag="Benefits"
+        title="Why engineering teams choose QuickIssue"
+      >
+        <BenefitsSection />
       </LandingSection>
       <div className="h-screen"></div>
     </div>

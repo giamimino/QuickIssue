@@ -11,7 +11,7 @@ const LandingSection = ({
 }: {
   children: React.ReactNode;
   title: string;
-  description: string;
+  description?: string;
   tag: string;
 }) => {
   return (
@@ -30,9 +30,11 @@ const LandingSection = ({
           {tag}
         </Button>
         <CardTitle className="text-4xl text-center">{title}</CardTitle>
-        <CardDescription className="text-[18px] w-full max-w-200 text-center">
-          {description}
-        </CardDescription>
+        {description && (
+          <CardDescription className="text-[18px] w-full max-w-200 text-center">
+            {description}
+          </CardDescription>
+        )}
       </motion.div>
       <div>{children}</div>
     </section>

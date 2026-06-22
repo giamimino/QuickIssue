@@ -45,8 +45,8 @@ export const benefits = [
     title: "Reuse what works",
     description:
       "A template that worked on one project works on all your projects. Build once, use everywhere.",
-    metric: "50k+",
-    metricLabel: "templates shared",
+    metric: "50%",
+    metricLabel: "less duplicate work",
     color: "#F0883E",
   },
 ] as const;
