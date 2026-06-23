@@ -1,8 +1,11 @@
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const CTABanner = () => {
+  const router = useRouter();
+
   return (
     <section className="w-full flex justify-center">
       <div className="w-full max-w-4xl">
@@ -32,14 +35,15 @@ const CTABanner = () => {
               Join us to save hours of time with QuickIssue.
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
-              <div
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-white hover:opacity-90 hover:shadow-xl hover:shadow-violet-500/30 hover:-translate-y-0.5 transition-all duration-200"
+              <button
+                onClick={() => router.push("/login")}
+                className="inline-flex cursor-pointer items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-white hover:opacity-90 hover:shadow-xl hover:shadow-violet-500/30 hover:-translate-y-0.5 transition-all duration-200"
                 style={{
                   background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
                 }}
               >
                 Get started for free <ArrowRight className="w-4 h-4" />
-              </div>
+              </button>
               <a className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-[#E6EDF3] border border-[#30363D] hover:border-[#6366f1]/40 transition-colors">
                 Explore templates
               </a>

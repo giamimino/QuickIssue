@@ -54,10 +54,14 @@ export function Header() {
       </div>
 
       <div className="hidden md:flex items-center gap-3">
-        <div className="text-foreground/50 hover:text-primary cursor-pointer text-sm transition-colors px-3 py-1.5">
+        <button
+          onClick={() => router.push("/login")}
+          className="text-foreground/50 hover:text-primary cursor-pointer text-sm transition-colors px-3 py-1.5"
+        >
           Log in
-        </div>
-        <div
+        </button>
+        <button
+          onClick={() => router.push("/login")}
           className="px-4 py-1.5 cursor-pointer text-sm font-medium text-white transition-all duration-400 hover:opacity-90 hover:shadow-lg hover:shadow-violet-500/25"
           style={{
             background: "linear-gradient(135deg, #6366f1, #8b5cf6)",
@@ -65,7 +69,7 @@ export function Header() {
           }}
         >
           Get Started
-        </div>
+        </button>
       </div>
 
       <button

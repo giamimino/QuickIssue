@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, GitBranch, Terminal } from "lucide-react";
 import { motion } from "motion/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function IssueEditorMockup() {
@@ -143,6 +144,8 @@ function IssueEditorMockup() {
 }
 
 const HeroSection = () => {
+  const router = useRouter();
+
   return (
     <section
       className="min-h-screen"
@@ -195,6 +198,7 @@ const HeroSection = () => {
               text-foreground transition-all duration-200 
               hover:opacity-90 hover:shadow-xl hover:shadow-violet-500/30 
               hover:-translate-y-0.5 font-medium`}
+              onClick={() => router.push("/login")}
             >
               <span>{`Get Started — it's free`}</span>
               <span>
