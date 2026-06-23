@@ -1,5 +1,6 @@
 "use client";
 import BenefitsSection from "@/components/sections/landing/benefits-section";
+import CTABanner from "@/components/sections/landing/CTA-banner";
 import FeaturesSection from "@/components/sections/landing/features-section";
 import HeroSection from "@/components/sections/landing/hero-section";
 import HowItWorksSections from "@/components/sections/landing/how-it-works-sections";
@@ -8,7 +9,7 @@ import React from "react";
 
 const LandingPage = () => {
   return (
-    <div className="px-8 max-md:px-6 flex flex-col gap-24">
+    <div className="px-8 max-md:px-6 flex flex-col gap-56 max-lg:gap-46 max-md:gap-28">
       <HeroSection />
       <LandingSection
         tag="Features"
@@ -30,6 +31,7 @@ const LandingPage = () => {
       >
         <BenefitsSection />
       </LandingSection>
+      <CTABanner />
       <div className="h-screen"></div>
     </div>
   );

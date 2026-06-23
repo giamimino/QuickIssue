@@ -1,14 +1,31 @@
 "use client";
+import clsx from "clsx";
 import { X, Zap, Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function Header() {
+  const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+
+    document.addEventListener("scroll", onScroll);
+
+    return () => document.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="flex justify-between py-4 px-6 items-center">
+    <header
+      className={clsx(
+        `fixed top-0 left-0 w-full 
+    z-99 flex justify-between py-4 px-6 items-center transition-all
+    duration-300`,
+        scrolled && "bg-background border-b border-foreground/10",
+      )}
+    >
       <div
         className="flex items-center gap-4 cursor-pointer"
         onClick={() => router.push("/")}
@@ -26,12 +43,13 @@ export function Header() {
 
       <div className="hidden md:flex gap-4 items-center">
         {["Features", "How it works", "Benefits"].map((item) => (
-          <button
+          <a
+            href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
             key={item.toLowerCase().replace(/\s+/g, "-")}
             className="text-foreground/50 hover:text-primary transition-colors rounded-md cursor-pointer"
           >
             {item}
-          </button>
+          </a>
         ))}
       </div>
 
