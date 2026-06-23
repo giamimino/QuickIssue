@@ -9,7 +9,7 @@ const CTABanner = () => {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.6 }}
           className="relative rounded-3xl border border-[#30363D] overflow-hidden text-center px-8 py-16"
           style={{
