@@ -144,8 +144,14 @@ function IssueEditorMockup() {
 
 const HeroSection = () => {
   return (
-    <section>
-      <div className="px-18 py-24 max-lg:px-15 max-lg:py-20 max-md:px-9 max-md:py-12 max-sm:px-0 max-sm:py-8 flex justify-between">
+    <section
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.18) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 85% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 60%), #0D1117",
+      }}
+    >
+      <div className="px-18 pt-24 mt-20 max-lg:px-15 max-lg:pt-20 max-md:px-9 max-md:pt-12 max-sm:px-0 max-sm:pt-9 flex justify-between">
         <div className="flex flex-col gap-6">
           <p className="text-7xl max-lg:text-6xl max-md:text-5xl text-muted-foreground flex flex-col font-bold">
             <motion.span
