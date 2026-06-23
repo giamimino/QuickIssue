@@ -1,4 +1,3 @@
-import { handlers } from "@/lib/auth/auth"
+import { handlers } from "@/lib/auth/auth";
 
-
-export const { get, post } = handlers
+export const { get, post } = handlers;

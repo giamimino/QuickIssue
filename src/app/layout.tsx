@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Nunito_Sans, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const outfitHeading = Outfit({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-heading",
+  variable: "--font-sans",
 });
 
-const nunitoSans = Nunito_Sans({ subsets: ["latin"], variable: "--font-sans" });
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
 
 export const metadata: Metadata = {
   title: "QuickIssue",
@@ -28,8 +31,9 @@ export default function RootLayout({
         "h-full",
         "antialiased",
         "font-sans",
-        nunitoSans.variable,
-        outfitHeading.variable,
+        inter.variable,
+        jetBrainsMono.variable,
+        "dark",
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>
