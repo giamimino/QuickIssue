@@ -2,6 +2,7 @@
 import BenefitsSection from "@/components/sections/landing/benefits-section";
 import CTABanner from "@/components/sections/landing/CTA-banner";
 import FeaturesSection from "@/components/sections/landing/features-section";
+import { Footer } from "@/components/sections/landing/footer";
 import HeroSection from "@/components/sections/landing/hero-section";
 import HowItWorksSections from "@/components/sections/landing/how-it-works-sections";
 import LandingSection from "@/components/sections/landing/landing-section";
@@ -32,7 +33,7 @@ const LandingPage = () => {
         <BenefitsSection />
       </LandingSection>
       <CTABanner />
-      <div className="h-screen"></div>
+      <Footer />
     </div>
   );
 };
