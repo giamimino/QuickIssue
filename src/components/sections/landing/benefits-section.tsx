@@ -11,7 +11,7 @@ import React from "react";
 
 const BenefitsSection = () => {
   return (
-    <div className="flex gap-6 mt-10">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-stretch gap-6 mt-10">
       {benefits.map((item, i) => (
         <motion.div
           key={item.title}
@@ -19,8 +19,9 @@ const BenefitsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.8 }}
           transition={{ duration: 0.5, delay: i / 10 }}
+          className="h-full"
         >
-          <Card className="bg-[#161B22] border border-accent hover:border-accent-foreground/20 transition-all duration-300">
+          <Card className="bg-[#161B22] h-full border border-accent hover:border-accent-foreground/20 transition-all duration-300">
             <CardHeader>
               <div
                 className="w-10 h-10 rounded-xl flex justify-center items-center"
