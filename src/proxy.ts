@@ -1,8 +1,14 @@
 import { NextRequest } from "next/server";
 import RouteProtectingMiddleware from "./middlewares/route-protecting.middleware";
+import { auth } from "./lib/auth/auth";
 
-export default async function proxy(req: NextRequest) {
-  const pathname = req.nextUrl.pathname;
+export default auth(async (req) => {
+  const isAuthenticated = !!req.auth;
 
-  const routeProtectingRes = await RouteProtectingMiddleware(pathname);
-}
+  const routeProtectingRes = await RouteProtectingMiddleware(
+    req,
+    isAuthenticated,
+  );
+
+  if (routeProtectingRes) return routeProtectingRes;
+});
