@@ -14,7 +14,7 @@ const benefits = [
 const AuthHero = () => {
   return (
     <div
-      className="w-full relative hidden flex-col gap-6 lg:flex border-r border-muted-foreground/25 min-h-screen pt-32 p-18"
+      className="w-full relative flex flex-col gap-6 border-r border-muted-foreground/25 min-h-screen pt-32 p-18"
       style={{
         background: "linear-gradient(135deg, #0D1117 0%, #161B22 100%)",
       }}

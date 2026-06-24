@@ -3,7 +3,7 @@ import NeonAdapter from "@auth/neon-adapter";
 import { pool } from "../db";
 import Github from "next-auth/providers/github";
 
-export const { authOptions, auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: NeonAdapter(pool),
   providers: [
     Github({

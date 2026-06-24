@@ -1,9 +1,11 @@
-import { signIn, signOut } from "./auth";
+"use server";
+
+import { signIn as authSignIn, signOut as authSignOut } from "./auth";
 
 export const Login = async (provider: "github") => {
-  await signIn(provider, { redirectTo: "/" });
+  await authSignIn(provider, { redirectTo: "/dashboard" });
 };
 
 export const Logout = async () => {
-  await signOut({ redirectTo: "/login" });
+  await authSignOut({ redirectTo: "/login" });
 };
