@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import RouteProtectingMiddleware from "./middlewares/route-protecting.middleware";
 import { auth } from "./lib/auth/auth";
 
