@@ -45,6 +45,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --lavender: #A78BFA;
   --periwinkle: #818CF8;
+  --bg-secondary: #F6F8FA;
 }
 
 .dark {
@@ -82,6 +83,7 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --bg-secondary: #161B22;
 }
 
 @theme inline {
@@ -128,6 +130,7 @@
   --color-sky-blue: var(--sky-blue);
   --color-indigo: var(--indigo);
   --color-violet: var(--violet);
+  --color-background-secondary: var(--bg-secondary);
 
   --breakpoint-xs: 28rem;
 }
