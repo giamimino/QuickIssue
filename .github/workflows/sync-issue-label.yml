@@ -26,9 +26,9 @@ jobs:
           script: |
             const pr = context.payload.pull_request
 
-            if(!pr) {
-              core.info(No pull request found)
-              return;  
+            if (!pr) {
+              core.info("No pull request found");
+              return;
             }
 
             const body = pr.body || "";
