@@ -25,7 +25,14 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request
+
+            if (!pr) {
+              core.info("No pull request found");
+              return;
+            }
+
             const body = pr.body || "";
+            const assignees = pr.assignees
 
             core.info(`PR body: ${body}`);
 
@@ -51,11 +58,29 @@ jobs:
               return;
             }
 
-            await github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: pr.number,
-              labels,
-            });
+            try {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels,
+              });
+
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                labels: ["pending"]
+              })
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                body: `This issue is taken by${assignees.map((assigne, i) => `${i === 0 ? " " : ", "}@${assigne.login}`)}.`  
+              })
+            } catch (err) {
+              console.log(`Failed for #${issue_number}`, err)
+            }
 
             core.info(`Copied labels: ${labels.join(", ")}`);
