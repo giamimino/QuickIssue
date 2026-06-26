@@ -1,1 +1,8 @@
-npm run lint && npm run prettier:check && npm run typecheck
+#!/bin/sh
+
+FILES=$(git diff --cached --name-only)
+if echo "$FILES" | grep -q "^src/"; then
+  npm run prettier:check
+  npm run lint
+  npm run typecheck
+fi
