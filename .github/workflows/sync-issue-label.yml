@@ -60,6 +60,13 @@ jobs:
                 labels,
               });
 
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number,
+                ["pending"]
+              })
+
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
