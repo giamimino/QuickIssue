@@ -8,7 +8,16 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="p-2.5 min-h-screen">
         <Sidebar />
       </div>
-      <div className="py-2.5 pr-2.5 w-full min-h-screen">{children}</div>
+
+      <div className="py-2.5 pr-2.5 w-full min-h-screen">
+        <div
+          className={`w-full h-full bg-card rounded-md p-5.5
+  border-sidebar-foreground/40 shadow-[-5px_20px_20px] border
+  shadow-accent-foreground/10`}
+        >
+          {children}
+        </div>
+      </div>
     </div>
   );
 };
