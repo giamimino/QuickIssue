@@ -45,43 +45,38 @@ const Sidebar = () => {
   )?.id;
 
   return (
-    <div className="min-w-65 bg-accent p-5.5 rounded-md">
+    <div className={`min-w-65 min-h-[90vh] border 
+    border-sidebar-accent shadow-[-10px_10px_20px] 
+    shadow-muted-foreground/30 bg-primary p-5.5 rounded-md`}>
       <div className="flex items-center justify-center flex-col">
         <CardTitle
-          className={`text-xl bg-linear-to-br 
-            from-muted-foreground from-40% via-foreground 
-            to-muted-foreground to-60% bg-clip-text text-transparent`}
+          className={`text-xl text-popover`}
         >
           QuickIssue
         </CardTitle>
-        <span
-          className={`h-px w-full bg-linear-to-r 
-            from-accent from-10% via-foreground 
-            to-accent to-90% mt-5`}
-        ></span>
       </div>
-      <div className="flex flex-col py-3 gap-3">
+      <div className="flex flex-col pt-5 gap-3">
         {pages.map((item) => (
           <div
             onClick={() => router.push(item.path)}
             className={clsx(
               `py-3 px-4 flex gap-3.75 items-center 
-            cursor-pointer rounded-xl transition-all duration-300`,
+            cursor-pointer rounded-xl text-popover transition-all duration-300`,
               currentPage === item.id
-                ? "bg-periwinkle/20 hover:bg-periwinkle/40"
-                : "hover:bg-ring",
+                ? "bg-accent/20 hover:bg-accent/40"
+                : "hover:bg-ring/12",
             )}
             key={item.id}
           >
             <div
               className={clsx(
-                `p-[7.5px] border border-lavender rounded-md transition-all duration-300`,
-                currentPage === item.id ? "bg-lavender" : "bg-lavender/40",
+                `p-[7.5px] border border-accent rounded-md transition-all duration-300`,
+                currentPage === item.id ? "bg-accent/40" : "bg-accent/10",
               )}
             >
               <item.icon className="w-3.75 h-3.75" />
             </div>
-            <CardTitle>{item.label}</CardTitle>
+            <CardTitle className="font-medium text-popover">{item.label}</CardTitle>
           </div>
         ))}
       </div>
