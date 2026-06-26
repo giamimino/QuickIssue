@@ -46,12 +46,14 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`min-w-65 min-h-[90vh] border 
-    border-sidebar-accent shadow-[-10px_10px_20px] 
-    shadow-muted-foreground/30 bg-primary p-5.5 rounded-md`}
+      className={`min-w-65 h-full border 
+    border-sidebar-foreground/40 shadow-[-5px_15px_20px] 
+    shadow-muted-foreground/10 bg-card p-5.5 rounded-md`}
     >
       <div className="flex items-center justify-center flex-col">
-        <CardTitle className={`text-xl text-popover`}>QuickIssue</CardTitle>
+        <CardTitle className={`text-xl text-card-foreground`}>
+          QuickIssue
+        </CardTitle>
       </div>
       <div className="flex flex-col pt-5 gap-3">
         {pages.map((item) => (
@@ -59,7 +61,7 @@ const Sidebar = () => {
             onClick={() => router.push(item.path)}
             className={clsx(
               `py-3 px-4 flex gap-3.75 items-center 
-            cursor-pointer rounded-xl text-popover transition-all duration-300`,
+            cursor-pointer rounded-xl text-card-foreground transition-all duration-300`,
               currentPage === item.id
                 ? "bg-accent/20 hover:bg-accent/40"
                 : "hover:bg-ring/12",
@@ -69,14 +71,12 @@ const Sidebar = () => {
             <div
               className={clsx(
                 `p-[7.5px] border border-accent rounded-md transition-all duration-300`,
-                currentPage === item.id ? "bg-accent/40" : "bg-accent/10",
+                currentPage === item.id ? "bg-input" : "bg-input/10",
               )}
             >
               <item.icon className="w-3.75 h-3.75" />
             </div>
-            <CardTitle className="font-medium text-popover">
-              {item.label}
-            </CardTitle>
+            <CardTitle className="font-medium">{item.label}</CardTitle>
           </div>
         ))}
       </div>
