@@ -45,15 +45,13 @@ const Sidebar = () => {
   )?.id;
 
   return (
-    <div className={`min-w-65 min-h-[90vh] border 
+    <div
+      className={`min-w-65 min-h-[90vh] border 
     border-sidebar-accent shadow-[-10px_10px_20px] 
-    shadow-muted-foreground/30 bg-primary p-5.5 rounded-md`}>
+    shadow-muted-foreground/30 bg-primary p-5.5 rounded-md`}
+    >
       <div className="flex items-center justify-center flex-col">
-        <CardTitle
-          className={`text-xl text-popover`}
-        >
-          QuickIssue
-        </CardTitle>
+        <CardTitle className={`text-xl text-popover`}>QuickIssue</CardTitle>
       </div>
       <div className="flex flex-col pt-5 gap-3">
         {pages.map((item) => (
@@ -76,7 +74,9 @@ const Sidebar = () => {
             >
               <item.icon className="w-3.75 h-3.75" />
             </div>
-            <CardTitle className="font-medium text-popover">{item.label}</CardTitle>
+            <CardTitle className="font-medium text-popover">
+              {item.label}
+            </CardTitle>
           </div>
         ))}
       </div>
