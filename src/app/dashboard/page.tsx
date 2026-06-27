@@ -51,20 +51,37 @@ const DashboardHomePage = () => {
             </div>
           </CardContent>
         </Card>
-        <Card className="rounded-md w-full max-w-50 h-fit">
-          <CardContent className="flex flex-col gap-3">
-            <CardTitle>Streak</CardTitle>
-            <div>
-              <div className="flex items-center gap-2">
-                <FaFireAlt fill="#ff0000" />
-                <h1>- 0</h1>
-              </div>
+        <Card className="rounded-md w-full h-fit min-w-50 max-w-fit">
+          <CardContent className="flex flex-col gap-4">
+            <div className="border-b pb-1 border-border">
+              <CardTitle>🔥Contribution Streak</CardTitle>
             </div>
-            <div>
-              <CardTitle>Best</CardTitle>
-              <div className="flex items-center gap-2">
-                <FaFireAlt fill="#ff0000" />
-                <h1>- 0</h1>
+            <div className="flex gap-5">
+              <div className="flex flex-col gap-2.5 items-center">
+                <div className="w-15 h-15 relative border-3 flex items-center justify-center border-red-600 rounded-full">
+                  <span className="p-1 absolute -top-3 bg-card left-1/2 -translate-x-1/2">
+                    <FaFireAlt className="text-red-600" />
+                  </span>
+                  <h1 className="font-semibold text-[18px]">0</h1>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-medium">Current Streak</h1>
+                  <CardDescription className="text-xs text-center">
+                    Jun 18 - Jun 19
+                  </CardDescription>
+                </div>
+              </div>
+              <div className="h-25 my-auto rounded-xl w-0.5 bg-foreground/50" />
+              <div className="flex flex-col gap-2.5 items-center my-auto">
+                <div className="w-5 h-5 flex items-center justify-center">
+                  <h1 className="font-semibold text-[18px]">0</h1>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <h1 className="font-medium">Longest Streak</h1>
+                  <CardDescription className="text-xs text-center">
+                    Jun 18 - Jun 19
+                  </CardDescription>
+                </div>
               </div>
             </div>
           </CardContent>
