@@ -6,16 +6,17 @@ import {
 } from "@/components/ui/card";
 import { CircleDot, LayoutTemplate } from "lucide-react";
 import React from "react";
+import { FaFireAlt } from "react-icons/fa";
 
 const DashboardHomePage = () => {
   return (
     <div>
-      <div className="w-full">
+      <div className="w-full flex gap-5">
         <Card className="rounded-md w-full max-w-100">
           <CardContent className="flex flex-col gap-3">
             <CardTitle>Activity</CardTitle>
             <CardDescription className="border-b border-border pb-1">
-              Total poins: 0
+              Total points: 0
             </CardDescription>
             <div className="flex gap-5">
               <div className="flex flex-col gap-2">
@@ -46,6 +47,24 @@ const DashboardHomePage = () => {
                 <h1>0</h1>
                 <h1>0</h1>
                 <h1>0</h1>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="rounded-md w-full max-w-50 h-fit">
+          <CardContent className="flex flex-col gap-3">
+            <CardTitle>Streak</CardTitle>
+            <div>
+              <div className="flex items-center gap-2">
+                <FaFireAlt fill="#ff0000" />
+                <h1>- 0</h1>
+              </div>
+            </div>
+            <div>
+              <CardTitle>Best</CardTitle>
+              <div className="flex items-center gap-2">
+                <FaFireAlt fill="#ff0000" />
+                <h1>- 0</h1>
               </div>
             </div>
           </CardContent>
