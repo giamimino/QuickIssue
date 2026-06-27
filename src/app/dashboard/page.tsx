@@ -10,11 +10,11 @@ import { FaFireAlt } from "react-icons/fa";
 
 const DashboardHomePage = () => {
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       <div className="w-full flex gap-5">
         <Card className="rounded-md w-full max-w-100">
           <CardContent className="flex flex-col gap-3">
-            <CardTitle>Activity</CardTitle>
+            <CardTitle>Stats</CardTitle>
             <CardDescription className="border-b border-border pb-1">
               Total points: 0
             </CardDescription>
@@ -86,6 +86,32 @@ const DashboardHomePage = () => {
             </div>
           </CardContent>
         </Card>
+      </div>
+      <div className="flex flex-col gap-5">
+        <div className="border-b border-border pb-2.5">
+          <CardTitle>Activity</CardTitle>
+        </div>
+        <div className="flex gap-5 border-b border-border pb-5">
+          {[0, 1, 2].map((item) => (
+            <div className="flex gap-2.5 w-full" key={item}>
+              <div className="flex flex-col gap-2">
+                <CircleDot className="w-4 h-4 text-muted-foreground" />
+                <CardDescription className="text-nowrap">
+                  June 2026
+                </CardDescription>
+              </div>
+              <Card className="w-full rounded-md">
+                <CardContent>
+                  <button className="cursor-pointer hover:underline hover:text-blue-300">
+                    #12
+                  </button>
+                  <CardTitle>[issue name]</CardTitle>
+                  <CardDescription>[issue description]</CardDescription>
+                </CardContent>
+              </Card>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
