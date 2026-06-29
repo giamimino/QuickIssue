@@ -41,7 +41,7 @@ jobs:
       - name: Check self assignment
         run: |
           COMMENT="${{ github.event.comment.body }}"
-          USER="${{ github.event.comment.user.login }}"
+          USER="@${{ github.event.comment.user.login }}"
 
           if [[ "$COMMENT" != *"$USER" ]]; then
             echo "User must mention themselves"
@@ -73,23 +73,6 @@ jobs:
           -f sha="$SHA"
         env:
           GH_TOKEN: ${{ github.token }}
-
-      - name: Update issue description
-        run: |
-          BODY=$(gh issue view ${{ github.event.issue.number }} \
-          --json body \
-          --jq '.body')
-
-          NEW_BODY="$BODY
-          Branch:
-          ${{ steps.branch.outputs.branch }}"
-
-            gh issue edit \
-            ${{ github.event.issue.number }} \
-            --body "$NEW_BODY"
-
-          env:
-            GH_TOKEN: ${{ github.token }}
   
       - name: Create pull request
         id: pr
