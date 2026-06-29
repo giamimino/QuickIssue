@@ -36,7 +36,7 @@ jobs:
 
             core.info(`PR body: ${body}`);
 
-            const match = body.toLowerCase().match(/(?:close|closes|fix|fixes|resolve|resolves)\s+#(\d+)/i);
+            const match = body.toLowerCase().match(/(?:close|closes|fix|fixes|resolve|resolves|issue)\s+#(\d+)/i);
 
             if (!match) {
               core.info("No linked issue found");
