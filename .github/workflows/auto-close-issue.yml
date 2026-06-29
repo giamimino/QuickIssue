@@ -23,7 +23,10 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const body = context.payload.pull_request.body || "";
+            const pr = context.payload.pull_request
+            const body = pr.body || "";
+            const closeIssue = body.includes("**DO NOT CLOSE**")
+            const state = pr.state
 
             const issueNumbers = [
               ...body.matchAll(
@@ -40,21 +43,28 @@ jobs:
               const issue_number = parseInt(issue, 10)
 
               try {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number,
-                  body: `Closed automatically by PR #${context.payload.pull_request.number}.`  
-                })
+                if(state === "closed") {
+                  const closedBy = context.payload.sender.login
 
-                await github.rest.issues.update({
+                  await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number,
+                    body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
+                  })
+                }
+                if(!closeIssue) {
+
+                  await github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number,
                   state: "closed"
                 });
-
+                
                 console.log(`Closed issue #${issue_number}`);
+              }
+                
               } catch (err) {
                 console.log(`Failed for #${issue_number}`, err);
               }
