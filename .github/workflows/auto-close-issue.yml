@@ -3,6 +3,7 @@ name: Auto Close Linked Issues
 on:
   pull_request:
     types: [closed]
+  workflow_dispatch:
 
 permissions:
   pull-requests: read
