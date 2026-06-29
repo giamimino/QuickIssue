@@ -1,6 +1,7 @@
 name: Auto create PR from issue assignment
 
 on:
+  workflow_dispatch:
   issue_comment:
     types:
       - created
