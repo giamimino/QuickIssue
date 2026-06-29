@@ -73,6 +73,19 @@ jobs:
           -f sha="$SHA"
         env:
           GH_TOKEN: ${{ github.token }}
+
+
+      - name: Create initial commit
+        run: |
+          git checkout -b "${{ steps.branch.outputs.branch }}"
+
+          echo "# Issue #${{ github.event.issue.number }}" > ISSUE.md
+
+          git add ISSUE.md
+
+          git commit -m "Initialize issue branch"
+
+          git push origin "${{ steps.branch.outputs.branch }}"
   
       - name: Create pull request
         id: pr
