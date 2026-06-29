@@ -103,3 +103,15 @@ jobs:
 
         env:
           GH_TOKEN: ${{ github.token }}
+
+      - name: Comment on issue
+        run: |
+          gh issue comment \
+            ${{ github.event.issue.number }} \
+            --body "## ✅ Assignment completed successfully
+
+            **Branch:** \`${{ steps.branch.outputs.branch }}\`
+
+            The development branch has been created and is ready to use."
+        env:
+          GH_TOKEN: ${{ github.token }}
