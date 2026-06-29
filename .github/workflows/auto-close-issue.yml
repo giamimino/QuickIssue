@@ -54,14 +54,29 @@ jobs:
                     body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
                   })
                 }
-                if(!closeIssue) {
 
+                if(!closeIssue) {
                   await github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number,
                   state: "closed"
                 });
+
+                const { data: issue } = await github.rest.issue.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number
+                });
+
+                if(issue.state === "closed" && !!issue.labels.some((label) => label.name === "pending")) {
+                  await.github.rest.issue.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number,
+                    name: "pending"
+                  })
+                }
                 
                 console.log(`Closed issue #${issue_number}`);
               }
