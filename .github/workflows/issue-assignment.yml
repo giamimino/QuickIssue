@@ -79,6 +79,9 @@ jobs:
         run: |
           git checkout -b "${{ steps.branch.outputs.branch }}"
 
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           echo "# Issue #${{ github.event.issue.number }}" > ISSUE.md
 
           git add ISSUE.md
