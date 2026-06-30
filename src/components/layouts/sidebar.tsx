@@ -1,7 +1,13 @@
 "use client";
 import React from "react";
 import { CardTitle } from "../ui/card";
-import { CircleDot, House, LayoutTemplate, LucideProps } from "lucide-react";
+import {
+  CircleDot,
+  House,
+  LayoutTemplate,
+  LucideProps,
+  User,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 
@@ -34,6 +40,13 @@ const pages: {
     label: "Issues",
     path: "/dashboard/issues",
     matchSubRouter: true,
+  },
+  {
+    id: "profile",
+    icon: User,
+    label: "Profile",
+    path: "/dashboard/profile",
+    matchSubRouter: false,
   },
 ];
 
