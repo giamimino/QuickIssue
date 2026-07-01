@@ -72,7 +72,7 @@ jobs:
           -f ref="refs/heads/${{ steps.branch.outputs.branch }}" \
           -f sha="$SHA"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
 
       - name: Create initial commit
@@ -103,22 +103,21 @@ jobs:
           echo "$PR"
 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
       - name: Assign users
         run: |
-
-          USERS=$(echo "${{ steps.users.outputs.users }}" \
-          | sed 's/@//g' \
-          | tr ' ' ',')
+          USERS_JSON=$(echo "${{ steps.users.outputs.users }}" \
+            | sed 's/@//g' \
+            | awk '{print "[\"" $1 "\""} {for (i=2; i<=NF; i++) printf ",\"" $i "\""} END {print "]"}')
 
           gh api \
-          --method POST \
-          repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/assignees \
-          -f assignees="$USERS"
+            --method POST \
+            repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/assignees \
+            -f "assignees=$USERS_JSON"
 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
       - name: Comment on issue
         run: |
@@ -130,4 +129,4 @@ jobs:
 
             The development branch has been created and is ready to use."
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
