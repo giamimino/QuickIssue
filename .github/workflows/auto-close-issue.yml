@@ -24,63 +24,64 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const pr = context.payload.pull_request
+            const pr = context.payload.pull_request;
             const body = pr.body || "";
-            const closeIssue = body.includes("**DO NOT CLOSE**")
-            const state = pr.state
-            const hasClosingKeyword = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+(?:issue\s+)?#\d+/i.test(body);
+            const closeIssue = body.includes("**DO NOT CLOSE**");
+
+            const hasClosingKeyword =
+              /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+(?:issue\s+)?#\d+/i.test(body);
 
             const issueNumbers = [
               ...body.matchAll(
                 /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved|issue|issues)\s+(?:issue\s+)?#(\d+)/gi
               ),
-            ].map(m => Number(m[1]));
+            ].map((m) => Number(m[1]));
 
-            if(!issueNumbers.length) {
+            if (!issueNumbers.length) {
               core.info("No issues found. Bot goes back to sleep.");
               return;
             }
 
-            for(const issue of issueNumbers) {
-              const issue_number = parseInt(issue, 10)
-
+            for (const issue_number of issueNumbers) {
               try {
-                const closedBy = context.payload.sender.login
+                const closedBy = context.payload.sender.login;
 
                 await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number,
-                  body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
-                })
+                  body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`,
+                });
 
-                if(!closeIssue && hasClosingKeyword) {
+                if (!closeIssue && hasClosingKeyword) {
                   await github.rest.issues.update({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number,
-                    state: "closed"
+                    state: "closed",
                   });
                 }
 
                 const { data: issue } = await github.rest.issues.get({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
-                  issue_number
+                  issue_number,
                 });
 
-                if(issue.state === "closed" && !!issue.labels.some((label) => label.name === "pending")) {
+                if (
+                  issue.state === "closed" &&
+                  issue.labels.some((label) => label.name === "pending")
+                ) {
                   await github.rest.issues.removeLabel({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number,
-                    name: "pending"
-                  })
+                    name: "pending",
+                  });
                 }
-                
-                console.log(`Closed issue #${issue_number}`);
-              }
-                
+
+                console.log(`Processed issue #${issue_number}`);
               } catch (err) {
                 console.log(`Failed for #${issue_number}`, err);
               }
+            }
