@@ -84,4 +84,3 @@ jobs:
               } catch (err) {
                 console.log(`Failed for #${issue_number}`, err);
               }
-            }
