@@ -31,7 +31,7 @@ jobs:
 
             const issueNumbers = [
               ...body.matchAll(
-                /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+(?:issue\s+)?#(\d+)/gi
+                /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved|issue|issues)\s+(?:issue\s+)?#(\d+)/gi
               ),
             ].map(m => Number(m[1]));
 
@@ -44,18 +44,18 @@ jobs:
               const issue_number = parseInt(issue, 10)
 
               try {
-                if(state === "closed") {
-                  const closedBy = context.payload.sender.login
+                const closedBy = context.payload.sender.login
 
-                  await github.rest.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number,
-                    body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
-                  })
-                }
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number,
+                  body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
+                })
 
-                if(!closeIssue) {
+                if(!closeIssue && !body.matchAll(
+                  /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+(?:issue\s+)?#(\d+)/gi
+                )) {
                   await github.rest.issues.update({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
