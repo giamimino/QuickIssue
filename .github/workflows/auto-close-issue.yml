@@ -56,11 +56,12 @@ jobs:
 
                 if(!closeIssue && hasClosingKeyword) {
                   await github.rest.issues.update({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number,
-                  state: "closed"
-                });
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number,
+                    state: "closed"
+                  });
+                }
 
                 const { data: issue } = await github.rest.issues.get({
                   owner: context.repo.owner,
@@ -69,7 +70,7 @@ jobs:
                 });
 
                 if(issue.state === "closed" && !!issue.labels.some((label) => label.name === "pending")) {
-                  await.github.rest.issues.removeLabel({
+                  await github.rest.issues.removeLabel({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
                     issue_number,
