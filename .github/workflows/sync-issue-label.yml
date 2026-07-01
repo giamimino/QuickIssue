@@ -25,62 +25,63 @@ jobs:
         with:
           script: |
             const pr = context.payload.pull_request
-
-            if (!pr) {
-              core.info("No pull request found");
-              return;
-            }
-
             const body = pr.body || "";
-            const assignees = pr.assignees
+            const closeIssue = body.includes("**DO NOT CLOSE**")
+            const state = pr.state
+            const hasClosingKeyword = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s+(?:issue\s+)?#\d+/i.test(body);
 
-            core.info(`PR body: ${body}`);
+            const issueNumbers = [
+              ...body.matchAll(
+                /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved|issue|issues)\s+(?:issue\s+)?#(\d+)/gi
+              ),
+            ].map(m => Number(m[1]));
 
-            const match = body.toLowerCase().match(/(?:close|closes|fix|fixes|resolve|resolves|issue)\s+#(\d+)/i);
-
-            if (!match) {
-              core.info("No linked issue found");
+            if(!issueNumbers.length) {
+              core.info("No issues found. Bot goes back to sleep.");
               return;
             }
 
-            const issue_number = Number(match[1])
+            for(const issue of issueNumbers) {
+              const issue_number = parseInt(issue, 10)
 
-            const { data: issue } = await github.rest.issues.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number,
-            });
+              try {
+                const closedBy = context.payload.sender.login
 
-            const labels = issue.labels.filter(label => label.name !== "pending").map(label => label.name);
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number,
+                  body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`  
+                })
 
-            if (labels.length === 0) {
-              core.info("Issue has no labels");
-              return;
-            }
+                if(!closeIssue && hasClosingKeyword) {
+                  await github.rest.issues.update({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number,
+                    state: "closed"
+                  });
+                }
 
-            try {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                labels,
-              });
+                const { data: issue } = await github.rest.issues.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number
+                });
 
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number,
-                labels: ["pending"]
-              })
+                if(issue.state === "closed" && !!issue.labels.some((label) => label.name === "pending")) {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number,
+                    name: "pending"
+                  })
+                }
 
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number,
-                body: `This issue is taken by${assignees.map((assigne, i) => `${i === 0 ? " " : ", "}@${assigne.login}`)}.`  
-              })
-            } catch (err) {
-              console.log(`Failed for #${issue_number}`, err)
+                console.log(`Closed issue #${issue_number}`);
+              } catch (err) {
+                console.log(`Failed for #${issue_number}`, err);
+              }
             }
 
             core.info(`Copied labels: ${labels.join(", ")}`);
