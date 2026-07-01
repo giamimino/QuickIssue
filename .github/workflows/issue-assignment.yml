@@ -72,7 +72,7 @@ jobs:
           -f ref="refs/heads/${{ steps.branch.outputs.branch }}" \
           -f sha="$SHA"
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
 
       - name: Create initial commit
@@ -103,7 +103,7 @@ jobs:
           echo "$PR"
 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
       - name: Assign users
         run: |
@@ -118,7 +118,7 @@ jobs:
           -f assignees="$USERS"
 
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
 
       - name: Comment on issue
         run: |
@@ -130,4 +130,4 @@ jobs:
 
             The development branch has been created and is ready to use."
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SECRET_BOT }}
