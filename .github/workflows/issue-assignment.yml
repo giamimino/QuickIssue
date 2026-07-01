@@ -107,15 +107,14 @@ jobs:
 
       - name: Assign users
         run: |
-
-          USERS=$(echo "${{ steps.users.outputs.users }}" \
-          | sed 's/@//g' \
-          | tr ' ' ',')
+          USERS_JSON=$(echo "${{ steps.users.outputs.users }}" \
+            | sed 's/@//g' \
+            | awk '{print "[\"" $1 "\""} {for (i=2; i<=NF; i++) printf ",\"" $i "\""} END {print "]"}')
 
           gh api \
-          --method POST \
-          repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/assignees \
-          -f assignees="$USERS"
+            --method POST \
+            repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/assignees \
+            -f "assignees=$USERS_JSON"
 
         env:
           GH_TOKEN: ${{ secrets.SECRET_BOT }}
