@@ -52,32 +52,19 @@ jobs:
                   });
                 }
 
-                const { data: issue } = await github.rest.issues.get({
+                await github.rest.issues.createComment({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number,
+                  body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`,
+                }); 
+
+                await github.rest.issues.removeLabel({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number,
+                  name: "pending",
                 });
-
-                if(issue.state === "closed") {
-                  await github.rest.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number,
-                    body: `✅ Closed via PR #${pr.number}${closedBy ? ` by @${closedBy}` : ""}.`,
-                  }); 
-                }
-
-                if (
-                  issue.state === "closed" &&
-                  issue.labels.some((label) => label.name === "pending")
-                ) {
-                  await github.rest.issues.removeLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number,
-                    name: "pending",
-                  });
-                }
 
                 console.log(`Processed issue #${issue_number}`);
               } catch (err) {
