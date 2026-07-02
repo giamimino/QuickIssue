@@ -43,7 +43,7 @@ jobs:
               try {
                 const closedBy = context.payload.sender.login;
 
-                console.log(pr, body, closeIssue, closedBy, issueNumbers)
+                console.log(pr, body, closeIssue, closedBy, issueNumbers, hasClosingKeyword)
 
                 if (!closeIssue && hasClosingKeyword) {
                   await github.rest.issues.update({
