@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   cancel-in-progress: true
-  group: auto-close-issues-${{ github.ref }}
+  group: auto-close-issues-${{ github.event.pull_request.number }}
 
 jobs:
   close-issues:
@@ -43,6 +43,8 @@ jobs:
               try {
                 const closedBy = context.payload.sender.login;
 
+                console.log(pr, body, closeIssue, closedBy, issueNumbers)
+
                 if (!closeIssue && hasClosingKeyword) {
                   await github.rest.issues.update({
                     owner: context.repo.owner,
@@ -71,3 +73,9 @@ jobs:
                 console.log(`Failed for #${issue_number}`, err);
               }
             }
+      - name: Debug
+        run: |
+          echo "Event: ${{ github.event_name }}"
+          echo "Action: ${{ github.event.action}}"
+          echo "Merged: ${{ github.event.pull_request.merged }}"
+          echo "Issue: ${{ github.event.pull_request }}"
