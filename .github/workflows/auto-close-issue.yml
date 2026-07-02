@@ -45,7 +45,7 @@ jobs:
 
                 console.log(pr, body, closeIssue, closedBy, issueNumbers, hasClosingKeyword)
 
-                if (!closeIssue && hasClosingKeyword) {
+                if (!closeIssue && !hasClosingKeyword) {
                   await github.rest.issues.update({
                     owner: context.repo.owner,
                     repo: context.repo.repo,
