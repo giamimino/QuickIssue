@@ -43,8 +43,6 @@ jobs:
               try {
                 const closedBy = context.payload.sender.login;
 
-                console.log(pr, body, closeIssue, closedBy, issueNumbers, hasClosingKeyword)
-
                 if (!closeIssue && !hasClosingKeyword) {
                   await github.rest.issues.update({
                     owner: context.repo.owner,
@@ -73,9 +71,3 @@ jobs:
                 console.log(`Failed for #${issue_number}`, err);
               }
             }
-      - name: Debug
-        run: |
-          echo "Event: ${{ github.event_name }}"
-          echo "Action: ${{ github.event.action}}"
-          echo "Merged: ${{ github.event.pull_request.merged }}"
-          echo "Issue: ${{ github.event.pull_request }}"
