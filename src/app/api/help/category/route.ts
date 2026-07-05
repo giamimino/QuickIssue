@@ -1,3 +1,4 @@
+import GENERIC_ERRORS from "@/constants/errors/generic.errors";
 import { sql } from "@/lib/db";
 import { isUUID } from "@/schema/generic.schema";
 import { NextResponse } from "next/server";
@@ -9,21 +10,32 @@ export async function GET(req: Request) {
 
     const value = Number(limit);
     const Limit = isNaN(value) ? 20 : value;
-    const check = isUUID.safeParse(id);
+    const check = isUUID.safeParse(id ?? "");
     let Id = null;
 
-    if (!check.error) {
+    if (check.success) {
       Id = check.data;
     }
 
-    const categories = await sql.query(
-      `SELECT * FROM 'HelpCategory' WHERE $1 IS NULL OR id = $1 LIMIT $2`,
-      [id, Limit],
-    );
+    let categories;
+
+    if (!Id) {
+      categories = await sql.query(`SELECT * FROM "HelpCategory" LIMIT $1`, [
+        Limit,
+      ]);
+    } else {
+      categories = await sql.query(
+        `SELECT * FROM "HelpCategory" WHERE id = $1 LIMIT $2`,
+        [Id, Limit],
+      );
+    }
 
     return NextResponse.json({ ok: true, categories }, { status: 200 });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ ok: false, message: "" }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: GENERIC_ERRORS.SERVER_ERROR },
+      { status: 500 },
+    );
   }
 }
