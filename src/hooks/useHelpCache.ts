@@ -6,7 +6,7 @@ const STORAGE_KEY = "help-center/categories";
 
 export default function useHelpCache() {
   const [categories, setCategories] = useState<HelpCenterCategoryType[]>([]);
-
+  const [isHydrated, setIsHydrated] = useState(false);
   useEffect(() => {
     const getData = () => {
       const data = sessionStorage.getItem(STORAGE_KEY);
@@ -18,6 +18,8 @@ export default function useHelpCache() {
       if (parsed && parsed.length !== 0) {
         setCategories(parsed);
       }
+
+      setIsHydrated(true);
     };
 
     getData();
@@ -30,5 +32,7 @@ export default function useHelpCache() {
   return {
     categories,
     setCategories,
+    isHydrated,
+    setIsHydrated,
   };
 }
