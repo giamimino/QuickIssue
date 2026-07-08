@@ -14,7 +14,7 @@ export async function POST(req: Request) {
       );
 
     const articles = await sql.query(
-      `SELECT a.slug FROM "HelpArticle" a JOIN "HelpCategory" c ON c.slug = $1 WHERE a.order = 0`,
+      `SELECT a.slug FROM "HelpCategory" c LEFT JOIN "HelpArticle" a ON a."categoryId" = c.id AND a.order = 0 WHERE c.slug = $1`,
       [category],
     );
     const article = articles[0];
