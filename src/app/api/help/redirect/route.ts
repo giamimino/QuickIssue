@@ -7,8 +7,6 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { category } = body;
 
-    console.log(category);
-
     if (!category)
       return NextResponse.json(
         { ok: false, error: GENERIC_ERRORS.GENERIC_ERROR },
@@ -19,10 +17,17 @@ export async function POST(req: Request) {
       `SELECT a.slug FROM "HelpArticle" a JOIN "HelpCategory" c ON c.slug = $1 WHERE a.order = 0`,
       [category],
     );
+    const article = articles[0];
+    const slug = article.slug;
 
-    return NextResponse.json({ ok: true, articles }, { status: 200 });
+    const url = `/help/${category}/${slug}`;
+
+    return NextResponse.json({ ok: true, redirectPath: url }, { status: 200 });
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ ok: false }, { status: 500 });
+    return NextResponse.json(
+      { ok: false, error: GENERIC_ERRORS.SERVER_ERROR },
+      { status: 500 },
+    );
   }
 }
