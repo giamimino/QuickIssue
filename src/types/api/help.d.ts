@@ -1,16 +1,26 @@
 import { ERROR_TYPE } from "../generic";
 import { HelpCenterCategoryType } from "../help-center";
+import { ApiErrorResponseType } from "./api";
 
 declare namespace HelpApi {
   namespace Category {
     type Response =
-      | {
-          ok: false;
-          error: ERROR_TYPE;
-        }
+      | ApiErrorResponseType
       | {
           ok: true;
           categories: HelpCenterCategoryType[];
+        };
+  }
+  namespace Redirect {
+    interface Request {
+      category: string;
+    }
+
+    type Response =
+      | ApiErrorResponseType
+      | {
+          ok: true;
+          redirectPath: string;
         };
   }
 }
