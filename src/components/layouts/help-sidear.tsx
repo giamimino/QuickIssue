@@ -2,18 +2,23 @@
 import useHelpCache from "@/hooks/useHelpCache";
 import React, { useCallback, useEffect } from "react";
 import { CardTitle } from "../ui/card";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import ApiClient from "@/lib/api/api-client";
+import { HelpApi } from "@/types/api/help";
+import ApiConfig from "@/configs/api.config";
+import clsx from "clsx";
 
 const HelpSidebar = () => {
   const { categories, setCategories, isHydrated } = useHelpCache();
   const router = useRouter();
+  const pathname = usePathname();
 
   const fetchData = useCallback(async () => {
     if (categories.length !== 0) return;
 
     try {
-      const res = await fetch("/api/help/category");
-      const data = await res.json();
+      const data =
+        await ApiClient<HelpApi.Category.Response>("/api/help/category");
 
       if (data.ok) {
         setCategories(data.categories);
@@ -24,7 +29,19 @@ const HelpSidebar = () => {
   }, [categories.length, setCategories]);
 
   const handleRedirect = async (slug: string) => {
-    const res = await fetch("");
+    try {
+      const body: HelpApi.Redirect.Request = { category: slug };
+      const data = await ApiClient<HelpApi.Redirect.Response>(
+        "/api/help/redirect",
+        { ...ApiConfig.post, body: JSON.stringify(body) },
+      );
+
+      if (data.ok) {
+        router.push(data.redirectPath);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -40,11 +57,19 @@ const HelpSidebar = () => {
           <span>QuickIssue</span>
           <span>Help-Center</span>
         </CardTitle>
-        <div>
+        <div className="flex flex-col gap-2.5">
           {categories.map((cat) => (
             <div
               key={cat.id}
-              className="p-2.5 border border-border rounded-md cursor-pointer"
+              onClick={async () => {
+                await handleRedirect(cat.slug);
+              }}
+              className={clsx(
+                "p-2.5 rounded-md border cursor-pointer hover:border-border/90 transition-all duration-300",
+                pathname.includes(cat.slug)
+                  ? "font-semibold border-border text-sm"
+                  : "text-xs border-current/0 ",
+              )}
             >
               <h1>{cat.name}</h1>
             </div>
