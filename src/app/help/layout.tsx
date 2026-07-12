@@ -3,7 +3,7 @@ import React from "react";
 
 const HelpLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <div className="flex gap-2.5">
       <div>
         <HelpSidebar />
       </div>
