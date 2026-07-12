@@ -1,21 +1,25 @@
-import { HelpCenterCategoryType } from "@/types/help-center";
+import {
+  HelpCenterArticleType,
+  HelpCenterCacheType,
+  HelpCenterCategoryType,
+} from "@/types/help-center";
 import safeParse from "@/utils/safeParse";
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "help-center/categories";
 
 export default function useHelpCache() {
-  const [categories, setCategories] = useState<HelpCenterCategoryType[]>([]);
+  const [categories, setCategories] = useState<HelpCenterCacheType[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
+
   useEffect(() => {
+    if (typeof window === "undefined") return;
     const getData = () => {
       const data = sessionStorage.getItem(STORAGE_KEY);
 
-      if (!data) return;
+      if (data) {
+        const parsed = safeParse<HelpCenterCacheType[], []>(data, []);
 
-      const parsed = safeParse<HelpCenterCategoryType[], null>(data, null);
-
-      if (parsed && parsed.length !== 0) {
         setCategories(parsed);
       }
 
@@ -26,13 +30,14 @@ export default function useHelpCache() {
   }, []);
 
   useEffect(() => {
+    if (!isHydrated) return;
+
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(categories));
-  }, [categories]);
+  }, [categories, isHydrated]);
 
   return {
     categories,
     setCategories,
     isHydrated,
-    setIsHydrated,
   };
 }
