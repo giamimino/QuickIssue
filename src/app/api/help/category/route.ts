@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const { id, limit } = Object.fromEntries(searchParams.entries());
+    const { id, limit, slug } = Object.fromEntries(searchParams.entries());
 
     const value = Number(limit);
     const Limit = isNaN(value) ? 20 : value;
@@ -19,15 +19,20 @@ export async function GET(req: Request) {
 
     let categories;
 
-    if (!Id) {
+    if (Id) {
+      categories = await sql.query(
+        `SELECT * FROM "HelpCategory" WHERE id = $1 LIMIT 1`,
+        [Id],
+      );
+    } else if (slug) {
+      categories = await sql.query(
+        `SELECT * FROM "HelpCategory" WHERE slug = $1 LIMIT 1`,
+        [slug],
+      );
+    } else {
       categories = await sql.query(`SELECT * FROM "HelpCategory" LIMIT $1`, [
         Limit,
       ]);
-    } else {
-      categories = await sql.query(
-        `SELECT * FROM "HelpCategory" WHERE id = $1 LIMIT $2`,
-        [Id, Limit],
-      );
     }
 
     return NextResponse.json({ ok: true, categories }, { status: 200 });
