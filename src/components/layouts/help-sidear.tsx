@@ -7,11 +7,14 @@ import ApiClient from "@/lib/api/api-client";
 import { HelpApi } from "@/types/api/help";
 import ApiConfig from "@/configs/api.config";
 import clsx from "clsx";
+import { HelpCenterCacheType } from "@/types/help-center";
+import ArticlesSidebar from "./articles-sidebar";
 
 const HelpSidebar = () => {
   const { categories, setCategories, isHydrated } = useHelpCache();
   const router = useRouter();
   const pathname = usePathname();
+  const currentPage = categories.find((c) => pathname.includes(c.slug));
 
   const fetchData = useCallback(async () => {
     if (categories.length !== 0) return;
@@ -21,7 +24,14 @@ const HelpSidebar = () => {
         await ApiClient<HelpApi.Category.Response>("/api/help/category");
 
       if (data.ok) {
-        setCategories(data.categories);
+        const normalizedCategories: HelpCenterCacheType[] = data.categories.map(
+          (c) => ({
+            ...c,
+            articles: [],
+          }),
+        );
+
+        setCategories((prev) => [...prev, ...normalizedCategories]);
       }
     } catch (error) {
       console.log(error);
@@ -74,6 +84,9 @@ const HelpSidebar = () => {
               <h1>{cat.name}</h1>
             </div>
           ))}
+        </div>
+        <div className="mt-auto">
+          <ArticlesSidebar id={currentPage?.id} category={currentPage?.name} />
         </div>
       </div>
     </div>
