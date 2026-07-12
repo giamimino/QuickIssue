@@ -1,5 +1,5 @@
 import { ERROR_TYPE } from "../generic";
-import { HelpCenterCategoryType } from "../help-center";
+import { HelpCenterArticleType, HelpCenterCategoryType } from "../help-center";
 import { ApiErrorResponseType } from "./api";
 
 declare namespace HelpApi {
@@ -11,6 +11,7 @@ declare namespace HelpApi {
           categories: HelpCenterCategoryType[];
         };
   }
+
   namespace Redirect {
     interface Request {
       category: string;
@@ -22,5 +23,11 @@ declare namespace HelpApi {
           ok: true;
           redirectPath: string;
         };
+  }
+
+  namespace Article {
+    type Response =
+      | ApiErrorResponseType
+      | { ok: true; articles: HelpCenterArticleType[] };
   }
 }
