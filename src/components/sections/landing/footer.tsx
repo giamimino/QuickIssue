@@ -8,7 +8,7 @@ const links: Record<string, { label: string; url?: string }[]> = {
     { label: "Benefits", url: "#benefits" },
   ],
   Developers: [
-    { label: "Documentation" },
+    { label: "Documentation", url: "/help" },
     { label: "GitHub" },
     { label: "Status" },
   ],
