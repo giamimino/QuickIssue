@@ -9,9 +9,8 @@ const RichTextRenderer = ({
 }) => {
   return (
     <div className="flex flex-col">
-      {content.map((c, i) => (
-        <NodeRenderer content={c} key={i} />
-      ))}
+      {Array.isArray(content) &&
+        content.map((c, i) => <NodeRenderer content={c} key={i} />)}
     </div>
   );
 };

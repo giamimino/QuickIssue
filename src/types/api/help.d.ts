@@ -1,4 +1,3 @@
-import { ERROR_TYPE } from "../generic";
 import { HelpCenterArticleType, HelpCenterCategoryType } from "../help-center";
 import { ApiErrorResponseType } from "./api";
 

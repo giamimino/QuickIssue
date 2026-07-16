@@ -1,8 +1,4 @@
-import {
-  HelpCenterArticleType,
-  HelpCenterCacheType,
-  HelpCenterCategoryType,
-} from "@/types/help-center";
+import { HelpCenterCacheType } from "@/types/help-center";
 import safeParse from "@/utils/safeParse";
 import { useEffect, useState } from "react";
 

@@ -1,10 +1,7 @@
 import Heading from "./nodes/heading";
 import Paragraph from "./nodes/paragraph";
 import List from "./nodes/list";
-import {
-  DocContentTypes,
-  HelpCenterArticleContentType,
-} from "@/types/help-center";
+import { HelpCenterArticleContentType } from "@/types/help-center";
 import { ComponentType } from "react";
 import Note from "./nodes/note";
 import Warning from "./nodes/warning";

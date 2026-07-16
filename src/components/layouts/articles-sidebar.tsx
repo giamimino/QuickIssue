@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardTitle } from "../ui/card";
 import ApiClient from "@/lib/api/api-client";
 import { HelpApi } from "@/types/api/help";
-import { HelpCenterArticleType } from "@/types/help-center";
 import clsx from "clsx";
 import { usePathname, useRouter } from "next/navigation";
 

@@ -1,7 +1,4 @@
-import {
-  DocumentNodeType,
-  HelpCenterArticleContentType,
-} from "@/types/help-center";
+import { HelpCenterArticleContentType } from "@/types/help-center";
 import React from "react";
 import DocumentRegistry from "./registry";
 

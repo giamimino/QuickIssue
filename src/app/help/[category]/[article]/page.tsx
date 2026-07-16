@@ -1,10 +1,9 @@
 "use client";
 import RichTextRenderer from "@/components/rich-text/RichTextRenderer";
-import { Card, CardDescription } from "@/components/ui/card";
+import { CardDescription } from "@/components/ui/card";
 import useHelpCache from "@/hooks/useHelpCache";
 import ApiClient from "@/lib/api/api-client";
 import { HelpApi } from "@/types/api/help";
-import { HelpCenterCacheType } from "@/types/help-center";
 import React, { use, useCallback, useEffect } from "react";
 
 const ArticlePage = ({
@@ -29,7 +28,7 @@ const ArticlePage = ({
 
     if (currentCategory.articles.length > 0) return;
 
-    const url = `/api/help/articles?categoryId=${currentCategory.id}`;
+    const url = `/api/help/articles?categoryId=${currentCategory.id}&content=true`;
 
     const data = await ApiClient<HelpApi.Article.Response>(url);
 
@@ -42,7 +41,7 @@ const ArticlePage = ({
         ),
       );
     }
-  }, [categories, category]);
+  }, [categories, category, setCategories]);
 
   useEffect(() => {
     if (!isHydrated) return;
