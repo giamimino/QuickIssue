@@ -61,7 +61,7 @@ const HelpSidebar = () => {
   }, [fetchData, isHydrated]);
 
   return (
-    <div className={`min-w-50 max-w-65 h-screen p-2.5`}>
+    <div className={`w-55 h-screen p-2.5`}>
       <div className="p-3 border border-border h-full rounded-md flex flex-col gap-4">
         <CardTitle className="flex flex-col text-xl">
           <span>QuickIssue</span>
