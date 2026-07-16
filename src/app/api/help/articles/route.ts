@@ -7,17 +7,19 @@ import { ZodError } from "zod";
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const { categoryId, limit } = Object.fromEntries(searchParams.entries());
+    const { categoryId, limit, content } = Object.fromEntries(
+      searchParams.entries(),
+    );
 
     await isUUID.parseAsync(categoryId);
 
     const value = Number(limit);
     const Limit = isNaN(value) ? 20 : value;
+    const sqlQuery = Boolean(content)
+      ? `SELECT * FROM "HelpArticle" WHERE "categoryId" = $1 AND published = true LIMIT $2`
+      : `SELECT title, "categoryId", slug, id FROM "HelpArticle" WHERE "categoryId" = $1 AND published = true LIMIT $2`;
 
-    const articles = await sql.query(
-      `SELECT * FROM "HelpArticle" WHERE "categoryId" = $1 AND published = true LIMIT $2`,
-      [categoryId, Limit],
-    );
+    const articles = await sql.query(sqlQuery, [categoryId, Limit]);
 
     return NextResponse.json({ ok: true, articles }, { status: 200 });
   } catch (err) {
