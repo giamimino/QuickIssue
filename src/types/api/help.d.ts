@@ -29,5 +29,15 @@ declare namespace HelpApi {
     type Response =
       | ApiErrorResponseType
       | { ok: true; articles: HelpCenterArticleType[] };
+
+    type NoContentResponse =
+      | ApiErrorResponseType
+      | {
+          ok: true;
+          articles: Pick<
+            HelpCenterArticleType,
+            "categoryId" | "title" | "slug" | "id"
+          >[];
+        };
   }
 }
