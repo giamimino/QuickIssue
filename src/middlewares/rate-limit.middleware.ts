@@ -24,11 +24,9 @@ export default async function RateLimitMiddleware(
     rule = config;
   }
 
-  if (!rule)
-    return NextResponse.json(
-      { ok: false, error: GENERIC_ERRORS.GENERIC_ERROR },
-      { status: 400 },
-    );
+  if (!rule) {
+    rule = { path: "/", matchSubRoutes: true, limit: 20 };
+  }
 
   const key = rule.path;
 
