@@ -18,7 +18,7 @@ export function Footer() {
   return (
     <footer
       className="border-t border-[#30363D] py-16 px-4 sm:px-6 lg:px-8"
-      style={{ background: "#0D1117" }}
+      style={{ background: "var(--bg-hero-gradiant)" }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between gap-8 mb-14">
@@ -27,7 +27,7 @@ export function Footer() {
               <div className="w-8 h-8 rounded-lg bg-linear-to-br from-[#6366f1] to-[#8b5cf6] flex items-center justify-center">
                 <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
               </div>
-              <span className="text-[#E6EDF3] font-semibold">QuickIssue</span>
+              <span className="text-foreground font-semibold">QuickIssue</span>
             </div>
             <p className="text-[#8B949E] text-sm leading-relaxed max-w-xs mb-6">
               Create, manage, and share GitHub issue templates. Better issues
@@ -48,7 +48,7 @@ export function Footer() {
           <div className="flex gap-12">
             {Object.entries(links).map(([category, items]) => (
               <div key={category}>
-                <h4 className="text-[#E6EDF3] font-medium text-sm mb-4">
+                <h4 className="text-foreground font-medium text-sm mb-4">
                   {category}
                 </h4>
                 <ul className="space-y-2.5">

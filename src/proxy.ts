@@ -14,5 +14,5 @@ export default auth(async (req) => {
 
   const rateLimitRes = await RateLimitMiddleware(req);
 
-  if (rateLimitRes) return rateLimitRes;
+  // if (rateLimitRes) return rateLimitRes;
 });

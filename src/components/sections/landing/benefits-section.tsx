@@ -21,7 +21,7 @@ const BenefitsSection = () => {
           transition={{ duration: 0.5, delay: i / 10 }}
           className="h-full"
         >
-          <Card className="bg-[#161B22] h-full border border-accent hover:border-accent-foreground/20 transition-all duration-300">
+          <Card className="bg-background-secondary h-full border border-accent hover:border-accent-foreground/20 transition-all duration-300">
             <CardHeader>
               <div
                 className="w-10 h-10 rounded-xl flex justify-center items-center"

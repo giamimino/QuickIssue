@@ -6,7 +6,7 @@
 
 :root {
   --font-size: 16px;
-  --background: #F6F8FA;
+  --background: #f6f8fa;
   --foreground: oklch(0.145 0 0);
   --card: #ffffff;
   --card-foreground: oklch(0.145 0 0);
@@ -43,13 +43,31 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --lavender: #A78BFA;
-  --periwinkle: #818CF8;
-  --bg-secondary: #F6F8FA;
+  --lavender: #a78bfa;
+  --periwinkle: #818cf8;
+  --bg-secondary: #f6f8fa;
+  --bg-hero-gradient:
+    radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(99, 102, 241, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 40% at 85% 40%,
+      rgba(139, 92, 246, 0.08) 0%,
+      transparent 60%
+    ),
+    #ffffff;
+  --cta-banner-bg: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.12) 0%,
+    rgba(139, 92, 246, 0.08) 50%,
+    rgba(248, 250, 252, 0.95) 100%
+  );
 }
 
 .dark {
-  --background: #0D1117;
+  --background: #0d1117;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.145 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -83,9 +101,27 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-  --lavender: #A78BFA;
-  --bg-secondary: #161B22;
-  --periwinkle: #818CF8;
+  --lavender: #a78bfa;
+  --bg-secondary: #161b22;
+  --periwinkle: #818cf8;
+  --bg-hero-gradient:
+    radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(99, 102, 241, 0.18) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 40% at 85% 40%,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 60%
+    ),
+    #0d1117;
+  --cta-banner-bg: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(139, 92, 246, 0.1) 50%,
+    rgba(22, 27, 34, 0.95) 100%
+  );
 }
 
 @theme inline {
@@ -133,18 +169,17 @@
   --color-indigo: var(--indigo);
   --color-violet: var(--violet);
   --color-background-secondary: var(--bg-secondary);
-
   --breakpoint-xs: 28rem;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
 }
