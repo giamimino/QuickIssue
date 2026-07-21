@@ -150,8 +150,7 @@ const HeroSection = () => {
     <section
       className="min-h-screen"
       style={{
-        background:
-          "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99, 102, 241, 0.18) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 85% 40%, rgba(139, 92, 246, 0.1) 0%, transparent 60%), #0D1117",
+        background: "var(--bg-hero-gradient)",
       }}
     >
       <div className="px-18 pt-24 mt-20 max-lg:px-15 max-lg:pt-20 max-md:px-9 max-md:pt-12 max-sm:px-0 max-sm:pt-9 flex justify-between">
@@ -195,7 +194,7 @@ const HeroSection = () => {
             <Button
               className={`py-6 px-3 text-sm cursor-pointer 
               bg-linear-to-br from-indigo-500 to-violet-400 
-              text-foreground transition-all duration-200 
+              text-white transition-all duration-200 
               hover:opacity-90 hover:shadow-xl hover:shadow-violet-500/30 
               hover:-translate-y-0.5 font-medium`}
               onClick={() => router.push("/login")}

@@ -16,8 +16,7 @@ const CTABanner = () => {
           transition={{ duration: 0.6 }}
           className="relative rounded-3xl border border-[#30363D] overflow-hidden text-center px-8 py-16"
           style={{
-            background:
-              "linear-gradient(135deg, rgba(99,102,241,0.15) 0%, rgba(139,92,246,0.1) 50%, rgba(22,27,34,0.95) 100%)",
+            background: "var(--cta-banner-bg)",
           }}
         >
           <div
@@ -28,7 +27,7 @@ const CTABanner = () => {
             }}
           />
           <div className="relative">
-            <h2 className="text-4xl sm:text-5xl font-semibold text-[#E6EDF3] mb-4 tracking-tight">
+            <h2 className="text-4xl sm:text-5xl font-semibold text-foreground mb-4 tracking-tight">
               Start writing better issues today
             </h2>
             <p className="text-[#8B949E] text-lg mb-10 max-w-xl mx-auto">
@@ -44,7 +43,7 @@ const CTABanner = () => {
               >
                 Get started for free <ArrowRight className="w-4 h-4" />
               </button>
-              <a className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-[#E6EDF3] border border-[#30363D] hover:border-[#6366f1]/40 transition-colors">
+              <a className="inline-flex cursor-pointer select-none items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-medium text-foreground border border-[#30363D] hover:border-[#6366f1]/40 transition-colors">
                 Explore templates
               </a>
             </div>
