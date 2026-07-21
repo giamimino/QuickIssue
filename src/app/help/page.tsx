@@ -4,9 +4,11 @@ import ApiConfig from "@/configs/api.config";
 import ApiClient from "@/lib/api/api-client";
 import { HelpApi } from "@/types/api/help";
 import { useRouter } from "next/navigation";
+import { useAlertContext } from "@/store/contexts/alert.context";
 
 const HelpPage = () => {
   const router = useRouter();
+  const { setAlert } = useAlertContext();
 
   const handleRedirect = useCallback(async () => {
     try {
@@ -21,6 +23,8 @@ const HelpPage = () => {
 
       if (data.ok) {
         router.push(data.redirectPath);
+      } else if (data.error) {
+        setAlert({ ...data.error, id: crypto.randomUUID() });
       }
     } catch (error) {
       console.log(error);
@@ -30,6 +34,7 @@ const HelpPage = () => {
   useEffect(() => {
     handleRedirect();
   }, [handleRedirect]);
+
   return null;
 };
 

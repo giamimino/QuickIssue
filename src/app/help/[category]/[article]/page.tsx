@@ -3,6 +3,7 @@ import RichTextRenderer from "@/components/rich-text/RichTextRenderer";
 import { CardDescription } from "@/components/ui/card";
 import useHelpCache from "@/hooks/useHelpCache";
 import ApiClient from "@/lib/api/api-client";
+import { useAlertContext } from "@/store/contexts/alert.context";
 import { HelpApi } from "@/types/api/help";
 import React, { use, useCallback, useEffect } from "react";
 
@@ -13,6 +14,7 @@ const ArticlePage = ({
 }) => {
   const { category, article } = use(params);
   const { categories, setCategories, isHydrated } = useHelpCache();
+  const { setAlert } = useAlertContext();
   const currentArticle = categories
     .find((c) => c.slug === category)
     ?.articles.find((a) => a.slug === article);
@@ -40,6 +42,8 @@ const ArticlePage = ({
             : c,
         ),
       );
+    } else {
+      setAlert({ ...data.error, id: crypto.randomUUID() });
     }
   }, [categories, category, setCategories]);
 
