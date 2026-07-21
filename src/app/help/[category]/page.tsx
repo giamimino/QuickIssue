@@ -2,6 +2,7 @@
 import { CardDescription } from "@/components/ui/card";
 import ApiConfig from "@/configs/api.config";
 import ApiClient from "@/lib/api/api-client";
+import { useAlertContext } from "@/store/contexts/alert.context";
 import { HelpApi } from "@/types/api/help";
 import { useRouter } from "next/navigation";
 import React, { use, useCallback, useEffect } from "react";
@@ -13,6 +14,7 @@ const CategoryPage = ({
 }) => {
   const { category } = use(params);
   const router = useRouter();
+  const { setAlert } = useAlertContext();
 
   const handleRedirect = useCallback(async () => {
     try {
@@ -27,6 +29,11 @@ const CategoryPage = ({
 
       if (data.ok) {
         router.push(data.redirectPath);
+      } else if (data.error) {
+        setAlert({
+          ...data.error,
+          id: crypto.randomUUID(),
+        });
       }
     } catch (error) {
       console.log(error);

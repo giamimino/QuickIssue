@@ -16,3 +16,7 @@ export default auth(async (req) => {
 
   if (rateLimitRes) return rateLimitRes;
 });
+
+export const config = {
+  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+};
