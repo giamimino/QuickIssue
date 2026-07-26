@@ -11,6 +11,8 @@ export default async function RateLimitMiddleware(
   req: NextRequest,
 ): Promise<NextResponse<unknown> | undefined> {
   const pathname = req.nextUrl.pathname;
+  if (!pathname.startsWith("/api")) return;
+
   let rule: ({ path: string } & RateLimitConfig) | undefined = undefined;
 
   for (const config of RateLimitRule) {
