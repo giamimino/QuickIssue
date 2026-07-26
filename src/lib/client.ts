@@ -8,7 +8,7 @@ let client: RedisClientType;
 
 if (!global.redisClient) {
   client = createClient({
-    url: process.env.REDIS_URL!,
+    url: process.env.REDIS_SECRET_URL,
   });
 
   client.on("error", (err: any) => console.error("Redis Client Error", err));
