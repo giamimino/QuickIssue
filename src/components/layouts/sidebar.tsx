@@ -1,7 +1,15 @@
 "use client";
 import React from "react";
-import { CardTitle } from "../ui/card";
-import { CircleDot, House, LayoutTemplate, LucideProps } from "lucide-react";
+import { CardDescription, CardTitle } from "../ui/card";
+import {
+  CircleDot,
+  House,
+  LayoutTemplate,
+  LogOut,
+  LucideProps,
+  Settings,
+  Zap,
+} from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
 
@@ -45,40 +53,95 @@ const Sidebar = () => {
   )?.id;
 
   return (
-    <div
-      className={`min-w-65 h-full border 
-    border-sidebar-foreground/40 shadow-[-5px_15px_20px] 
-    shadow-muted-foreground/10 bg-card p-5.5 rounded-md`}
-    >
-      <div className="flex items-center justify-center flex-col">
-        <CardTitle className={`text-xl text-card-foreground`}>
-          QuickIssue
-        </CardTitle>
+    <div className={`min-w-65 h-full bg-sidebar-bg rounded-md border `}>
+      <div className="flex gap-2.5 p-4 border-b border-b-sidebar-border">
+        <div
+          className="w-8 h-8 rounded-md bg-linear-to-br from-indigo-400 to-violet-400 flex items-center justify-center"
+          style={{ borderRadius: "10px" }}
+        >
+          <Zap className="w-4 h-4 text-white" strokeWidth={2.5} />
+        </div>
+        <CardTitle className={`text-card-foreground`}>QuickIssue</CardTitle>
       </div>
-      <div className="flex flex-col pt-5 gap-3">
-        {pages.map((item) => (
+      <div className="py-4 border-b border-sidebar-border">
+        <div className="flex flex-col gap-2.5">
+          {pages.map((item) => (
+            <div
+              onClick={() => router.push(item.path)}
+              className={clsx(
+                `py-2.5 px-4 flex gap-3.75 items-center 
+              cursor-pointer text-card-foreground transition-all duration-300`,
+                currentPage === item.id
+                  ? "hover:bg-accent/40"
+                  : "hover:bg-ring/12",
+              )}
+              key={item.id}
+            >
+              <div
+                className={clsx(
+                  `p-1.75 border border-accent rounded-md transition-all duration-300`,
+                  currentPage === item.id ? "bg-input" : "bg-input/10",
+                )}
+              >
+                <item.icon className="w-3.25 h-3.25" />
+              </div>
+              <CardDescription
+                className={clsx(
+                  "font-medium",
+                  currentPage === item.id && "text-foreground",
+                )}
+              >
+                {item.label}
+              </CardDescription>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="py-4 border-b border-sidebar-border">
+        <div className="flex flex-col gap-2.5">
           <div
-            onClick={() => router.push(item.path)}
+            onClick={() => router.push("/logout")}
             className={clsx(
-              `py-3 px-4 flex gap-3.75 items-center 
-            cursor-pointer rounded-xl text-card-foreground transition-all duration-300`,
-              currentPage === item.id
-                ? "bg-accent/20 hover:bg-accent/40"
-                : "hover:bg-ring/12",
+              `py-2.5 px-4 flex gap-3.75 items-center 
+              cursor-pointer text-card-foreground transition-all duration-300 hover:bg-ring/12`,
             )}
-            key={item.id}
           >
             <div
               className={clsx(
-                `p-[7.5px] border border-accent rounded-md transition-all duration-300`,
-                currentPage === item.id ? "bg-input" : "bg-input/10",
+                `p-1.75 border border-accent rounded-md transition-all duration-300 bg-input/10`,
               )}
             >
-              <item.icon className="w-3.75 h-3.75" />
+              <Settings className="w-3.25 h-3.25" />
             </div>
-            <CardTitle className="font-medium">{item.label}</CardTitle>
+            <CardDescription
+              className={clsx("font-medium transition-all duration-300")}
+            >
+              Settings
+            </CardDescription>
           </div>
-        ))}
+          <div
+            onClick={() => router.push("/logout")}
+            className={clsx(
+              `py-2.5 px-4 flex gap-3.75 items-center 
+              cursor-pointer text-card-foreground transition-all duration-300 hover:bg-ring/12 hover:text-red-600/70 group`,
+            )}
+          >
+            <div
+              className={clsx(
+                `p-1.75 border border-accent rounded-md transition-all duration-300 bg-input/10`,
+              )}
+            >
+              <LogOut className="w-3.25 h-3.25" />
+            </div>
+            <CardDescription
+              className={clsx(
+                "font-medium group-hover:text-red-600/70 transition-all duration-300",
+              )}
+            >
+              Log out
+            </CardDescription>
+          </div>
+        </div>
       </div>
     </div>
   );
