@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import AlertProvider from "@/components/providers/alert.provider";
+import QueryclientProvider from "@/components/providers/queryclient.provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +39,9 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <AlertProvider>{children}</AlertProvider>
+        <QueryclientProvider>
+          <AlertProvider>{children}</AlertProvider>
+        </QueryclientProvider>
       </body>
     </html>
   );
