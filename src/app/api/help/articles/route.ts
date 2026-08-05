@@ -1,6 +1,7 @@
 import GENERIC_ERRORS from "@/constants/errors/generic.errors";
 import { sql } from "@/lib/db";
 import { isUUID } from "@/schema/generic.schema";
+import getArticles from "@/services/help/articles/articles.service";
 import { NextResponse } from "next/server";
 import { ZodError } from "zod";
 
@@ -15,11 +16,11 @@ export async function GET(req: Request) {
 
     const value = Number(limit);
     const Limit = isNaN(value) ? 20 : value;
-    const sqlQuery = Boolean(content)
-      ? `SELECT * FROM "HelpArticle" WHERE "categoryId" = $1 AND published = true LIMIT $2`
-      : `SELECT title, "categoryId", slug, id FROM "HelpArticle" WHERE "categoryId" = $1 AND published = true LIMIT $2`;
 
-    const articles = await sql.query(sqlQuery, [categoryId, Limit]);
+    const articles = await getArticles(Boolean(content), {
+      limit: Limit,
+      categoryId,
+    });
 
     return NextResponse.json({ ok: true, articles }, { status: 200 });
   } catch (err) {
