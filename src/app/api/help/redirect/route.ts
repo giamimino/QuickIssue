@@ -1,5 +1,6 @@
 import GENERIC_ERRORS from "@/constants/errors/generic.errors";
 import { sql } from "@/lib/db";
+import getArticles from "@/services/help/articles/articles.service";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -13,10 +14,14 @@ export async function POST(req: Request) {
         { status: 400 },
       );
 
-    const articles = await sql.query(
-      `SELECT a.slug FROM "HelpCategory" c LEFT JOIN "HelpArticle" a ON a."categoryId" = c.id AND a.order = 0 WHERE c.slug = $1`,
-      [category],
-    );
+    const articles = await getArticles(false, { limit: 1 }, category);
+
+    if (!articles)
+      return NextResponse.json(
+        { ok: false, error: GENERIC_ERRORS.GENERIC_ERROR },
+        { status: 400 },
+      );
+
     const article = articles[0];
     const slug = article.slug;
 

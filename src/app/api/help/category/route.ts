@@ -1,6 +1,7 @@
 import GENERIC_ERRORS from "@/constants/errors/generic.errors";
 import { sql } from "@/lib/db";
 import { isUUID } from "@/schema/generic.schema";
+import getCategories from "@/services/help/category/categories.service";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
@@ -17,23 +18,26 @@ export async function GET(req: Request) {
       Id = check.data;
     }
 
-    let categories;
+    let arg: GetCategoryRequest;
 
     if (Id) {
-      categories = await sql.query(
-        `SELECT * FROM "HelpCategory" WHERE id = $1 LIMIT 1`,
-        [Id],
-      );
+      arg = {
+        type: "byId",
+        payload: { id: Id },
+      };
     } else if (slug) {
-      categories = await sql.query(
-        `SELECT * FROM "HelpCategory" WHERE slug = $1 LIMIT 1`,
-        [slug],
-      );
+      arg = {
+        type: "bySlug",
+        payload: { slug },
+      };
     } else {
-      categories = await sql.query(`SELECT * FROM "HelpCategory" LIMIT $1`, [
-        Limit,
-      ]);
+      arg = {
+        type: "default",
+        payload: { limit: Limit },
+      };
     }
+
+    const categories = await getCategories(arg);
 
     return NextResponse.json({ ok: true, categories }, { status: 200 });
   } catch (err) {
